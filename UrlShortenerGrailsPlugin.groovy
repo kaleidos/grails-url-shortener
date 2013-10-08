@@ -43,7 +43,20 @@ Brief summary/description of the plugin.
     }
 
     def doWithSpring = {
-        // TODO Implement runtime spring config (optional)
+        def shortenerConfig = application.config.shortener
+
+        if (!shortenerConfig.characters) {
+            log.error "ERROR: UrlShortener characters to generate the urls not found. The property shortener.characters must be defined in Config.groovy"
+        }
+        if (!shortenerConfig.minLength) {
+            log.error "ERROR: UrlShortener minimum length not found. The property shortener.minLength must be defined in Config.groovy"
+        }
+
+        shortener(net.kaleidos.shortener.Shortener) {
+            grailsApplication = ref("grailsApplication")
+            CHARS = shortenerConfig.characters
+            MIN_LENGTH = shortenerConfig.minLength
+        }
     }
 
     def doWithDynamicMethods = { ctx ->

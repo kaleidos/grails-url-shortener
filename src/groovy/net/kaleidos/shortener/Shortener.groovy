@@ -1,17 +1,15 @@
 package net.kaleidos.shortener
 
-public class Shortener {
+class Shortener {
 
-    def CHARS = ('0'..'9') +
-                ('a'..'h') +
-                ('j'..'k') +
-                ('m'..'z') +
-                ('A'..'H') +
-                ('J'..'K') +
-                ('M'..'Z')
+    def grailsApplication
 
-    public String convert(Integer number) {
-        return convertToBase(number, CHARS.size(), 0, "").padLeft(5, "0")
+    // These properties are set from Config.groovy
+    def CHARS
+    Integer MIN_LENGTH
+
+    String toShort(Integer number) {
+        return convertToBase(number, CHARS.size(), 0, "").padLeft(MIN_LENGTH, "0")
     }
 
     private String convertToBase(Integer number, Integer base, Integer position, String result) {

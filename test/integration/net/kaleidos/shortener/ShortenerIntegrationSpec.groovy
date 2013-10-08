@@ -3,15 +3,14 @@ package net.kaleidos.shortener
 import grails.plugin.spock.*
 import spock.lang.*
 
-class ShortenerSpec extends Specification {
+class ShortenerIntegrationSpec extends IntegrationSpec {
+
+    def shortener
 
     @Unroll
     void 'generate short urls for some numbers: #num'() {
-        setup:
-            def shortener = new Shortener()
-
         when:
-            def result = shortener.convert(num)
+            def result = shortener.toShort(num)
 
         then:
             result == shortUrl
@@ -30,11 +29,8 @@ class ShortenerSpec extends Specification {
     }
 
     void 'if the number is too long the lenght of the url will be > 5'() {
-        setup:
-            def shortener = new Shortener()
-
         when:
-            def result = shortener.convert(num)
+            def result = shortener.toShort(num)
 
         then:
             result.length() > 5
