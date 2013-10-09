@@ -25,18 +25,18 @@ class UrlShortenerService {
      */
     public String shortUrl(String targetUrl) {
 
-        def shortenUrl = ShortenUrl.findByTargetUrl(targetUrl)
-        if (shortenUrl) {
-            return shortenUrl.shortUrl
+        def shortenInstance = ShortenUrl.findByTargetUrl(targetUrl)
+        if (shortenInstance) {
+            return shortenInstance.shortUrl
         }
 
         Long nextNumber = sequenceGenerator.getNextNumber()
 
         def shortUrl = this.convert(nextNumber)
-        shortenUrl = new ShortenUrl(targetUrl: targetUrl, shortUrl:shortUrl)
-        shortenUrl.save()
+        shortenInstance = new ShortenUrl(targetUrl: targetUrl, shortUrl:shortUrl)
+        shortenInstance.save()
 
-        if (!shortenUrl.hasErrors()) {
+        if (!shortenInstance.hasErrors()) {
             return shortUrl
         } else {
             return null
