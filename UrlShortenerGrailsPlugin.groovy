@@ -52,11 +52,7 @@ Brief summary/description of the plugin.
             log.error "ERROR: UrlShortener minimum length not found. The property shortener.minLength must be defined in Config.groovy"
         }
 
-        shortener(net.kaleidos.shortener.Shortener) {
-            grailsApplication = ref("grailsApplication")
-            CHARS = shortenerConfig.characters
-            MIN_LENGTH = shortenerConfig.minLength
-        }
+        sequenceGenerator(net.kaleidos.shortener.generator.DummySequenceGenerator)
     }
 
     def doWithDynamicMethods = { ctx ->
