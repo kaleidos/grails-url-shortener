@@ -64,4 +64,42 @@ class UrlShortenerServiceIntegrationSpec extends IntegrationSpec {
         where:
             targetUrl = "http://kaleidos.net"
     }
+
+    void 'get the targetUrl for a shortUrl'() {
+        setup:
+            def shortUrl = urlShortenerService.shortUrl(targetUrl)
+
+        when:
+            def targetUrl2 = urlShortenerService.getTargetUrl(shortUrl)
+
+        then:
+            targetUrl == targetUrl2
+
+        where:
+            targetUrl = "http://kaleidos.net"
+    }
+
+    void 'increment the number of hits when converting a short url to a target url'() {
+        setup:
+            def shortenInstance = new ShortenUrl(shortUrl: shortUrl, targetUrl: targetUrl)
+            shortenInstance.save()
+
+        when:
+            urlShortenerService.getTargetUrl(shortUrl)
+
+        then:
+            shortenInstance.hits == old(shortenInstance.hits) + 1
+
+        where:
+            targetUrl = "http://kaleidos.net"
+            shortUrl = "abcde"
+    }
+
+    void 'try to get the targetUrl for a shortUrl that does not exist'() {
+        when:
+            def targetUrl = urlShortenerService.getTargetUrl("SHORT_URL_DOES_NOT_EXIST")
+
+        then:
+            targetUrl == null
+    }
 }

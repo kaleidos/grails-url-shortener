@@ -43,6 +43,22 @@ class UrlShortenerService {
         }
     }
 
+    /**
+     * Get the target url from a short url and increment the number of hits
+     *
+     * @param shortUrl The short url to "expand"
+     * @return the target url or null if it doesn't exist
+     */
+    public String getTargetUrl(String shortUrl) {
+        def shortenInstance = ShortenUrl.findByShortUrl(shortUrl)
+        if (shortenInstance) {
+            shortenInstance.hits++
+            shortenInstance.save()
+        }
+
+        return shortenInstance?.targetUrl
+    }
+
     private String convert(Long number) {
         return convertToBase(number, CHARS.size(), 0, "").padLeft(MIN_LENGTH, CHARS[0])
     }
