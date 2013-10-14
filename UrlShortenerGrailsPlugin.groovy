@@ -51,6 +51,9 @@ Brief summary/description of the plugin.
         if (!shortenerConfig.minLength) {
             log.error "ERROR: UrlShortener minimum length not found. The property shortener.minLength must be defined in Config.groovy"
         }
+        if (!shortenerConfig.shortDomain) {
+            log.error "ERROR: UrlShortener short domain not found. The property shortener.shortDomain must be defined in Config.groovy"
+        }
 
         sequenceGenerator(net.kaleidos.shortener.generator.DummySequenceGenerator)
     }

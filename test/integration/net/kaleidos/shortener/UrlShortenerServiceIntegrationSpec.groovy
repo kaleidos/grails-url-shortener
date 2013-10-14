@@ -6,6 +6,7 @@ import spock.lang.*
 class UrlShortenerServiceIntegrationSpec extends IntegrationSpec {
 
     def urlShortenerService
+    def grailsApplication
 
     @Unroll
     void 'generate short urls for some numbers: #num'() {
@@ -57,6 +58,31 @@ class UrlShortenerServiceIntegrationSpec extends IntegrationSpec {
 
         when:
             def shortUrl2 = urlShortenerService.shortUrl(targetUrl)
+
+        then:
+            shortUrl1 == shortUrl2
+
+        where:
+            targetUrl = "http://kaleidos.net"
+    }
+
+    void 'get the full short domain for a target url'() {
+        when:
+            def result = urlShortenerService.shortUrlFullDomain(targetUrl)
+
+        then:
+            result.contains(grailsApplication.config.shortener.shortDomain)
+
+        where:
+            targetUrl = "http://kaleidos.net"
+    }
+
+    void 'short an already shorted url with full domain url'() {
+        setup:
+            def shortUrl1 = urlShortenerService.shortUrlFullDomain(targetUrl)
+
+        when:
+            def shortUrl2 = urlShortenerService.shortUrlFullDomain(targetUrl)
 
         then:
             shortUrl1 == shortUrl2

@@ -8,13 +8,15 @@ class UrlShortenerService {
     def grailsApplication
     def sequenceGenerator
 
-    List<String> CHARS
-    Integer MIN_LENGTH
+    List<String> chars
+    Integer minLength
+    String shortDomainUrl
 
     @PostConstruct
     public init() {
-        CHARS = grailsApplication.config.shortener.characters
-        MIN_LENGTH = grailsApplication.config.shortener.minLength
+        chars = grailsApplication.config.shortener.characters
+        minLength = grailsApplication.config.shortener.minLength
+        shortDomainUrl = grailsApplication.config.shortener.shortDomain
     }
 
     /**
@@ -44,6 +46,22 @@ class UrlShortenerService {
     }
 
     /**
+     * Generate a short url for a given url and return it with the full domain
+     *
+     * @param targetUrl The url to shorten
+     * @return the shorted url with full domain
+     */
+    public String shortUrlFullDomain(String targetUrl) {
+        def shortUrl = this.shortUrl(targetUrl)
+
+        if (shortUrl) {
+            return "${shortDomainUrl}/${shortUrl}"
+        } else {
+            return null
+        }
+    }
+
+    /**
      * Get the target url from a short url and increment the number of hits
      *
      * @param shortUrl The short url to "expand"
@@ -60,15 +78,15 @@ class UrlShortenerService {
     }
 
     private String convert(Long number) {
-        return convertToBase(number, CHARS.size(), 0, "").padLeft(MIN_LENGTH, CHARS[0])
+        return convertToBase(number, chars.size(), 0, "").padLeft(minLength, chars[0])
     }
 
     private String convertToBase(Long number, Integer base, Integer position, String result) {
         if (number < Math.pow(base, position + 1)) {
-            return CHARS[(number / (long)Math.pow(base, position)) as Integer] + result
+            return chars[(number / (long)Math.pow(base, position)) as Integer] + result
         } else {
             Long remainder = (number % (long)Math.pow(base, position + 1))
-            return convertToBase (number - remainder, base, position + 1, CHARS[(remainder / (long)(Math.pow(base, position))) as Integer] + result)
+            return convertToBase (number - remainder, base, position + 1, chars[(remainder / (long)(Math.pow(base, position))) as Integer] + result)
         }
     }
 }
