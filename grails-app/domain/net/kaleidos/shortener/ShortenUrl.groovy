@@ -28,7 +28,7 @@ class ShortenUrl {
     Date lastUpdated
 
     static constraints = {
-        targetUrl url:true, type: "text", unique: true
+        targetUrl url:['localhost:?\\d{0,4}'], type: "text", unique: true
     }
 
     static mapping = {

@@ -5,7 +5,8 @@ import spock.lang.*
 
 class ShortenUrlIntegrationSpec extends IntegrationSpec {
 
-    void 'save a short url for a target url'() {
+    @Unroll
+    void 'save a short url for a target url: #targetUrl'() {
         setup:
             def shortenInstance = new ShortenUrl(shortUrl: shortUrl, targetUrl: targetUrl)
 
@@ -21,6 +22,6 @@ class ShortenUrlIntegrationSpec extends IntegrationSpec {
 
         where:
             shortUrl = "abcde"
-            targetUrl = "http://kaleidos.net"
+            targetUrl << ["http://kaleidos.net", "http://localhost:8080", "http://localhost:123", "http://localhost:80", "http://localhost"]
     }
 }
