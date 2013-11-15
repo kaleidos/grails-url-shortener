@@ -2,6 +2,8 @@ Grails Url Shortener
 ====================
 
 [![Build Status](https://drone.io/github.com/lmivan/grails-url-shortener/status.png)](https://drone.io/github.com/lmivan/grails-url-shortener/latest)
+![Still maintained](http://stillmaintained.com/lmivan/grails-url-shortener.png "http://stillmaintained.com/lmivan/grails-url-shortener")
+
 
 This is a grails plugin that integrates an url shortener inside your Grails application.
 
