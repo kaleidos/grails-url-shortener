@@ -89,6 +89,16 @@ assert urlShortenerService.getTargetUrl(shortUrl) == "http://kaleidos.net"
 
 The plugin also provides a controller that can be used to redirect to the target url. It is available here [ShortenerController](https://github.com/lmivan/grails-url-shortener/blob/master/grails-app/controllers/net/kaleidos/shortener/ShorternerController.groovy) or you can implement your own custom controller.
 
+### Tag Library
+
+The plugin provides two GSP tags that generate short urls, `link` and `createLink`. They work as the standard Grails `link` and `createLink` but generates short urls.
+
+```javascript
+function copyShortLinkToClipboard() {
+    var url = "${shorter.createLink(controller: 'person', action: 'show', id: person.id, absolute: true)}";
+    window.prompt("${message(code: 'copy.to.clipboard.label', 'Copy to clipboard: Ctrl+C, Enter')}", url);
+}
+```
 
 ## Author
 
