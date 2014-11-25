@@ -56,14 +56,20 @@ class PostgresSequenceGenerator implements SequenceGenerator {
 }
 ```
 
-Finally, when you have created you custom generator you have to define the `urlShortenerSequenceGenerator` bean in your `resources.groovy` file:
+Finally, when you have created you custom generator you have to define the `sequenceGenerator` bean in your `resources.groovy` file:
 
 ```groovy
-urlShortenerSequenceGenerator(com.example.shortener.PostgresSequenceGenerator) {
+sequenceGenerator(com.example.shortener.PostgresSequenceGenerator) {
     dataSource = ref("dataSource")
 }
 ```
 
+### Sequence Generator Plugin
+
+You can also use the [sequence-generator](http://grails.org/plugin/sequence-generator) plugin to generate sequence numbers for short urls.
+Version 1.1+ of `sequence-generator` is compatible with version 0.2+ of `url-shortener`. Just add the `sequence-generator` plugin to
+your BuildConfig.groovy and you are ready to go.
+You don't have to create a custom generator or configure a sequenceGenerator bean (section above), it done by the `sequence-generator` plugin.
 
 ## Usage
 
@@ -111,5 +117,5 @@ Collaborations are appreciated :-)
 
 ## Release Notes
 
-* 0.2 - 21/Nov/2014 - *BREAKING CHANGE:* Renamed `sequenceGenerator` bean to `urlShortenerSequenceGenerator`. Added tags `shorter:link` and `shorter:createLink`.
+* 0.2 - 21/Nov/2014 - Added GSP tags `shorter:link` and `shorter:createLink`.
 * 0.1 - 17/Oct/2013 - Initial version of the plugin.

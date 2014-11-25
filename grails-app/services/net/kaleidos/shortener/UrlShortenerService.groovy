@@ -6,7 +6,7 @@ class UrlShortenerService {
     static transactional = true
 
     def grailsApplication
-    def urlShortenerSequenceGenerator
+    def sequenceGenerator
 
     List<String> chars
     Integer minLength
@@ -45,7 +45,7 @@ class UrlShortenerService {
             return shortenInstance.shortUrl
         }
 
-        Long nextNumber = urlShortenerSequenceGenerator.getNextNumber()
+        Long nextNumber = sequenceGenerator.getNextNumber()
 
         def shortUrl = this.convert(nextNumber)
         shortenInstance = new ShortenUrl(targetUrl: targetUrl, shortUrl:shortUrl)

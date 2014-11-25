@@ -49,7 +49,5 @@ This is a grails plugin that integrates a custom url shortener inside your Grail
         if (!shortenerConfig.shortDomain) {
             log.error "ERROR: UrlShortener short domain not found. The property shortener.shortDomain must be defined in Config.groovy"
         }
-
-        urlShortenerSequenceGenerator(net.kaleidos.shortener.generator.DummySequenceGenerator)
     }
 }
