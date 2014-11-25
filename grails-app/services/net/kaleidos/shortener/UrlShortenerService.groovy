@@ -6,7 +6,7 @@ class UrlShortenerService {
     static transactional = true
 
     def grailsApplication
-    def sequenceGenerator
+    def urlShortenerSequenceGenerator
 
     List<String> chars
     Integer minLength
@@ -14,8 +14,8 @@ class UrlShortenerService {
 
     @PostConstruct
     public init() {
-        chars = grailsApplication.config.shortener.characters
-        minLength = grailsApplication.config.shortener.minLength
+            chars = grailsApplication.config.shortener.characters
+            minLength = grailsApplication.config.shortener.minLength
         shortDomainUrl = grailsApplication.config.shortener.shortDomain
     }
 
@@ -32,7 +32,7 @@ class UrlShortenerService {
             return shortenInstance.shortUrl
         }
 
-        Long nextNumber = sequenceGenerator.getNextNumber()
+        Long nextNumber = urlShortenerSequenceGenerator.getNextNumber()
 
         def shortUrl = this.convert(nextNumber)
         shortenInstance = new ShortenUrl(targetUrl: targetUrl, shortUrl:shortUrl)
