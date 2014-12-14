@@ -39,13 +39,6 @@ This is a grails plugin that integrates a custom url shortener inside your Grail
 
     def doWithSpring = {
         def shortenerConfig = application.config.shortener
-
-        if (!shortenerConfig.characters) {
-            log.error "ERROR: UrlShortener characters to generate the urls not found. The property shortener.characters must be defined in Config.groovy"
-        }
-        if (!shortenerConfig.minLength) {
-            log.error "ERROR: UrlShortener minimum length not found. The property shortener.minLength must be defined in Config.groovy"
-        }
         if (!shortenerConfig.shortDomain) {
             log.error "ERROR: UrlShortener short domain not found. The property shortener.shortDomain must be defined in Config.groovy"
         }
