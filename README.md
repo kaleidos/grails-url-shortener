@@ -117,5 +117,6 @@ Collaborations are appreciated :-)
 
 ## Release Notes
 
+* 0.2.1 - 18/Jan/2015 - Fix regresion in 0.2 (See #6)
 * 0.2 - 21/Nov/2014 - Added GSP tags `shorter:link` and `shorter:createLink`.
 * 0.1 - 17/Oct/2013 - Initial version of the plugin.
