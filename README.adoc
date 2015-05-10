@@ -35,6 +35,10 @@ removing the vowels.
 * `minLength` is the minimum number of characters for the shorted url.
 * `shortDomain` the short domain for your url shortener.
 
+CAUTION: If you include both lowercase and uppercase characters in the `characters` list you must make sure your
+database/table is configured to do **case sensitive** queries. Otherwise you could get the wrong URL back when
+querying the database.
+
 Next you have to provide a unique number generator. The plugin provides an in-memory dummy implementation using
 AtomicLong available in the file https://github.com/lmivan/grails-url-shortener/blob/master/src/groovy/net/kaleidos/shortener/generator/DummySequenceGenerator.groovy[DummySequenceGenerator].
 
